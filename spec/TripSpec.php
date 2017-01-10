@@ -129,6 +129,6 @@ class TripSpec extends ObjectBehavior
             ]
         ];
 
-        $this->sortCards($cards)->shouldBeLike($expectedSortedArr);
+        $this->sortCards($cardInfoArr)->shouldBeLike($expectedSortedArr);
     }
 }

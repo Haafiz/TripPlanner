@@ -1,10 +1,17 @@
 <?php
-
+/**
+ * Usage file for Trip Cards Sorter API and Format
+ *
+ * @package  TripPlan
+ * @author   Hafiz Waheeduddin Ahmad <kaasib@gmail.com>
+ */
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+/* Require Composer's autoloader from vendor directory to utilize autoloading */
 require('vendor/autoload.php');
 
+/* Cards sample data */
 $cards = [
     [
         'from' => 'Barcelona',
@@ -46,6 +53,11 @@ $cards = [
         ]
     ]
 ];
+
+/**
+ * Code to sort cards and display Trip plan
+ *
+ */
 
 $trip = new Trip;
 $sortedCards = $trip->sortCards($cards);
