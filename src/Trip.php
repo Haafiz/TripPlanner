@@ -8,7 +8,7 @@ class Trip
      * @param $card
      *
      */
-    public function getTripDescriptionFromCards(Card $card, $cardsInfo, $defTransport = null)
+    public function getTripDescriptionFromCards(CardManager $card, $cardsInfo, $defTransport = null)
     {
         $cardStatements = [];
 
@@ -22,7 +22,6 @@ class Trip
                 $transport = $defTransport;
             }
 
-
             $cardStatements[] = $counter.". ".$card->getCardStatement($transport, $cardInfo);
             $counter++;
         }
@@ -33,9 +32,9 @@ class Trip
         return $description;
     }
 
-    public function sortCardsInfo($arr)
+    public function sortCards($cards)
     {
-        foreach ($arr as $card) {
+        foreach ($cards as $card) {
             $from[$card['from']] = $card;
             $to[$card['to']] = $card;
         }

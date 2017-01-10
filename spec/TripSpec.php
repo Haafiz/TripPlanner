@@ -18,7 +18,7 @@ class TripSpec extends ObjectBehavior
         $this->shouldHaveType(Trip::class);
     }
 
-    public function it_shows_sorted_cards_as_trip_description(Card $card, Transport $transport)
+    public function it_shows_sorted_cards_as_trip_description(CardManager $card, Transport $transport)
     {
         $cardInfo1 = [
            'from' => 'Madrid',
@@ -52,11 +52,6 @@ class TripSpec extends ObjectBehavior
 
         $cardsInfo = [$cardInfo1, $cardInfo2, $cardInfo3];
 
-        // $prophet = new \Prophecy\Prophet;
-        // $prophecy = $prophet->prophesize();
-        // $prophecy->willImplement('Transport');
-        // $transport = $prophecy->reveal();
-
         $card->getCardStatement($transport, $cardInfo1)->willReturn("Take train 78A from Madrid to Barcelona. Sit in seat 45B.");
         $card->getCardStatement($transport, $cardInfo2)->willReturn("Take the airport bus from Barcelona to Gerona Airport. No seat assignment.");
         $card->getCardStatement($transport, $cardInfo3)->willReturn("From Gerona Airport, take flight SK455 to Stockholm. Gate 45B, seat 3A.Baggage drop at ticket counter 344.");
@@ -74,7 +69,7 @@ class TripSpec extends ObjectBehavior
 
     public function it_sorts_card_info_array()
     {
-        $cardInfoArr = [
+        $cards = [
             [
                 'from' => 'Barcelona',
                 'to' => 'Gerona Airport',
@@ -98,7 +93,7 @@ class TripSpec extends ObjectBehavior
                 'transport' => [
                     'medium' => 'Airplane',
                     'seat' => '3A',
-                    'gate' => '22',
+                    'gate' => '45B',
                     'extra' => 'Baggage drop at ticket counter 344'
                 ]
             ]
@@ -128,12 +123,12 @@ class TripSpec extends ObjectBehavior
                 'transport' => [
                     'medium' => 'Airplane',
                     'seat' => '3A',
-                    'gate' => '22',
+                    'gate' => '45B',
                     'extra' => 'Baggage drop at ticket counter 344'
                 ]
             ]
         ];
 
-        $this->sortCardsInfo($cardInfoArr)->shouldBeLike($expectedSortedArr);
+        $this->sortCards($cards)->shouldBeLike($expectedSortedArr);
     }
 }
