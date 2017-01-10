@@ -1,11 +1,21 @@
 <?php
-
+/**
+ * Spec file for Train Class' implementation
+ *
+ * @package  TripPlan
+ * @author   Hafiz Waheeduddin Ahmad <kaasib@gmail.com>
+ */
 namespace spec;
 
 use Train;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * TrainSpec
+ *
+ * This class describe Specs for Train  Class that implements transport
+ */
 class TrainSpec extends ObjectBehavior
 {
     public function it_is_initializable()
@@ -15,7 +25,7 @@ class TrainSpec extends ObjectBehavior
 
     public function it_returns_boarding_card_info()
     {
-        $info = [
+        $card = [
                 'from' => 'Madrid',
                 'to' => 'Barcelona',
                 'transport' => [
@@ -25,6 +35,6 @@ class TrainSpec extends ObjectBehavior
                 ]
         ];
 
-        $this->getBoardingCardInfo($info)->shouldReturn("Take train 78A from Madrid to Barcelona. Sit in seat 45B.");
+        $this->getBoardingCardInfo($card)->shouldReturn("Take train 78A from Madrid to Barcelona. Sit in seat 45B.");
     }
 }

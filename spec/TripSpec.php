@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Spec file for Trip Class' implementation
+ *
+ * @package  TripPlan
+ * @author   Hafiz Waheeduddin Ahmad <kaasib@gmail.com>
+ */
 namespace spec;
 
 use CardManager;
@@ -11,6 +16,11 @@ use Trip;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * TripSpec
+ *
+ * This class describe Specs for Trip Class
+ */
 class TripSpec extends ObjectBehavior
 {
     public function it_is_initializable()
@@ -18,9 +28,17 @@ class TripSpec extends ObjectBehavior
         $this->shouldHaveType(Trip::class);
     }
 
-    public function it_shows_sorted_cards_as_trip_description(CardManager $card, Transport $transport)
+    /**
+     * It return cards as trip description
+     *
+     * @param CardManager $cardManager CardManager Double for mocking
+     * @param Transport $transport  Mocking Object of class implementing
+     * Transport interface
+     *
+     */
+    public function it_shows_sorted_cards_as_trip_description(CardManager $cardManager, Transport $transport)
     {
-        $cardInfo1 = [
+        $card1 = [
            'from' => 'Madrid',
            'to' => 'Barcelona',
            'transport' => [
@@ -30,7 +48,7 @@ class TripSpec extends ObjectBehavior
             ]
         ];
 
-        $cardInfo2 = [
+        $card2 = [
            'from' => 'Barcelona',
            'to' => 'Gerona Airport',
            'transport' => [
@@ -39,7 +57,7 @@ class TripSpec extends ObjectBehavior
             ]
         ];
 
-        $cardInfo3 = [
+        $card3 = [
            'to' => 'Stockholm',
            'from' => 'Gerona Airport',
            'transport' => [
@@ -50,23 +68,28 @@ class TripSpec extends ObjectBehavior
             ]
         ];
 
-        $cardsInfo = [$cardInfo1, $cardInfo2, $cardInfo3];
+        $cards = [$card1, $card2, $card3];
 
-        $card->getCardStatement($transport, $cardInfo1)->willReturn("Take train 78A from Madrid to Barcelona. Sit in seat 45B.");
-        $card->getCardStatement($transport, $cardInfo2)->willReturn("Take the airport bus from Barcelona to Gerona Airport. No seat assignment.");
-        $card->getCardStatement($transport, $cardInfo3)->willReturn("From Gerona Airport, take flight SK455 to Stockholm. Gate 45B, seat 3A.Baggage drop at ticket counter 344.");
+        // Mock the behavior and expectation for Card::getCardStatement()
+        $cardManager->getCardStatement($transport, $card1)->willReturn("Take train 78A from Madrid to Barcelona. Sit in seat 45B.");
+        $cardManager->getCardStatement($transport, $card2)->willReturn("Take the airport bus from Barcelona to Gerona Airport. No seat assignment.");
+        $cardManager->getCardStatement($transport, $card3)->willReturn("From Gerona Airport, take flight SK455 to Stockholm. Gate 45B, seat 3A.Baggage drop at ticket counter 344.");
 
-        $card->getTransportName($cardInfo1)->shouldBeCalled()->willReturn("Train");
-        $card->getTransportName($cardInfo2)->shouldBeCalled()->willReturn("AirportBus");
-        $card->getTransportName($cardInfo3)->shouldBeCalled()->willReturn("Air");
+        // Mock the behavior and expectation for Card::getTransportName()
+        $cardManager->getTransportName($card1)->shouldBeCalled()->willReturn("Train");
+        $cardManager->getTransportName($card2)->shouldBeCalled()->willReturn("AirportBus");
+        $cardManager->getTransportName($card3)->shouldBeCalled()->willReturn("Air");
 
-        $this->getTripDescriptionFromCards($card, $cardsInfo, $transport)->shouldContain('1. Take train 78A from Madrid to Barcelona. Sit in seat 45B.<br>
+        $this->getTripDescriptionFromCards($cardManager, $cards, $transport)->shouldContain('1. Take train 78A from Madrid to Barcelona. Sit in seat 45B.<br>
 2. Take the airport bus from Barcelona to Gerona Airport. No seat assignment.<br>
 3. From Gerona Airport, take flight SK455 to Stockholm. Gate 45B, seat 3A.Baggage drop at ticket counter 344.<br>
 4. You have arrived at your final destination.');
     }
 
 
+    /**
+     * Test that it sorts Cards correctly
+     */
     public function it_sorts_card_info_array()
     {
         $cards = [
@@ -99,7 +122,7 @@ class TripSpec extends ObjectBehavior
             ]
         ];
 
-        $expectedSortedArr = [
+        $expectedSortedCards = [
             [
                 'from' => 'Madrid',
                 'to' => 'Barcelona',
@@ -129,6 +152,6 @@ class TripSpec extends ObjectBehavior
             ]
         ];
 
-        $this->sortCards($cardInfoArr)->shouldBeLike($expectedSortedArr);
+        $this->sortCards($cards)->shouldBeLike($expectedSortedCards);
     }
 }
