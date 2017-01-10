@@ -21,7 +21,8 @@ class CardSpec extends ObjectBehavior
                 'to' => 'Barcelona',
                 'transport' => [
                     'medium' => 'train',
-                    'seat' => '45B'
+                    'seat' => '45B',
+                    'train_number' => '78A'
                 ]
         ];
 
