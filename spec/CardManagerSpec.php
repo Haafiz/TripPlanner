@@ -2,7 +2,7 @@
 
 namespace spec;
 
-use Card;
+use CardManager;
 use Transport;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -11,10 +11,10 @@ class CardSpec extends ObjectBehavior
 {
     public function it_is_initializable()
     {
-        $this->shouldHaveType("Card");
+        $this->shouldHaveType("CardManager");
     }
 
-    public function it_gets_card_info(Transport $transport)
+    public function it_gets_card_statement(Transport $transport)
     {
         $info = [
                 'from' => 'Madrid',
@@ -33,14 +33,15 @@ class CardSpec extends ObjectBehavior
         $this->getCardStatement($transport, $info)->shouldBe($expectedOutput);
     }
 
-    public function it_gets_transportName()
+    public function it_gets_transport_name()
     {
         $info = [
                 'from' => 'Madrid',
                 'to' => 'Barcelona',
                 'transport' => [
                     'medium' => 'train',
-                    'seat' => '45B'
+                    'seat' => '45B',
+                    'train_number' => '78A'
                 ]
         ];
 

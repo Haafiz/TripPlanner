@@ -1,10 +1,7 @@
 <?php
 
-class Card
+class CardManager
 {
-    public function __construct()
-    {
-    }
 
     public function getCardStatement(Transport $transport, $info)
     {
