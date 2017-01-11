@@ -34,7 +34,6 @@ class TripSpec extends ObjectBehavior
      * @param CardManager $cardManager CardManager Double for mocking
      * @param Transport $transport  Mocking Object of class implementing
      * Transport interface
-     *
      */
     public function it_shows_sorted_cards_as_trip_description(CardManager $cardManager, Transport $transport)
     {

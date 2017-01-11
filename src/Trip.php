@@ -1,20 +1,26 @@
 <?php
-
+/**
+ * Trip
+ *
+ * @author Hafiz Waheeduddin Ahmad <kaasib@gmail.com>
+ */
 class Trip
 {
     /**
-     * Get Trip Description based on Cards info Array
+     * Get Trip Description based on Cards
      *
-     * @param $card
-     *
+     * @param CardManager $cardManager
+     * @param Array $cards
+     * @param Transport $defTransport Default object implementing Transport
+     * @return String Trip description
      */
-    public function getTripDescriptionFromCards(CardManager $card, $cardsInfo, $defTransport = null)
+    public function getTripDescriptionFromCards(CardManager $cardManager, $cards, $defTransport = null)
     {
         $cardStatements = [];
 
         $counter = "1";
-        foreach ($cardsInfo as $cardInfo) {
-            $name = $card->getTransportName($cardInfo);
+        foreach ($cards as $cardInfo) {
+            $name = $cardManager->getTransportName($cardInfo);
 
             if (!$defTransport) {
                 $transport = new $name();
@@ -27,21 +33,28 @@ class Trip
         }
 
         $description = implode("<br>\n", $cardStatements);
-        $description .= "<br>\n4. You have arrived at your final destination.";
+        $description .= "<br>\n{$counter}. You have arrived at your final destination.";
 
         return $description;
     }
 
+    /**
+     * Sort Cards
+     *
+     * @param Array $cards
+     * @return Array $sortCards Cards in sorted order
+     */
     public function sortCards($cards)
     {
+        //populating from and to arrays
         foreach ($cards as $card) {
             $from[$card['from']] = $card;
             $to[$card['to']] = $card;
         }
 
+        //getting first location to start trip
         $fromLocations = array_keys($from);
         $fromLocationsCount = count($fromLocations);
-
         for ($i = 0; $i<$fromLocationsCount; $i++) {
             if (!array_key_exists($fromLocations[$i], $to)) {
                 $startLocation = $fromLocations[$i];
@@ -49,9 +62,11 @@ class Trip
             }
         }
 
+        // first current location will be start location
         $sortedCards = [];
         $currentLocation = $startLocation;
 
+        //sorting cards
         while ($currentCard = isset($from[$currentLocation])?$from[$currentLocation]:null) {
             $sortedCards[] = $currentCard;
             $currentLocation = $currentCard['to'];

@@ -1,12 +1,23 @@
 <?php
 
+/**
+ * AirportBus
+ *
+ * @author Hafiz Waheeduddin Ahmad <kaasib@gmail.com>
+ */
 class AirportBus implements Transport
 {
-    public function getBoardingCardInfo($info)
+    /**
+     * Get boarding card info based on Card
+     *
+     * @param Array $card
+     * @return String $str Boarding description
+     */
+    public function getBoardingCardInfo($card)
     {
-        $from = $info['from'];
-        $to = $info['to'];
-        $seat = $info['transport']['seat'];
+        $from = $card['from'];
+        $to = $card['to'];
+        $seat = $card['transport']['seat'];
 
         $str = "Take the airport bus from {$from} to {$to}. {$seat}.";
         return $str;

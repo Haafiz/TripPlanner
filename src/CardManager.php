@@ -1,17 +1,33 @@
 <?php
-
+/**
+ * CardManager
+ *
+ * @author Hafiz Waheeduddin Ahmad <kaasib@gmail.com>
+ */
 class CardManager
 {
-
-    public function getCardStatement(Transport $transport, $info)
+    /**
+     * Get Card description as statement/Sentence
+     *
+     * @param Transport $transport
+     * @param  Array $Card
+     * @return String Card description
+     */
+    public function getCardStatement(Transport $transport, $card)
     {
-        $boardingCardInfo = $transport->getBoardingCardInfo($info);
+        $boardingCardInfo = $transport->getBoardingCardInfo($card);
 
         return $boardingCardInfo;
     }
 
-    public function getTransportName($info)
+    /**
+     * Get Transport Name from Card
+     *
+     * @param  Array $Card
+     * @return String Trasport name
+     */
+    public function getTransportName($card)
     {
-        return ucwords($info['transport']['medium']);
+        return ucwords($card['transport']['medium']);
     }
 }
