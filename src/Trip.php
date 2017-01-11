@@ -28,7 +28,7 @@ class Trip
                 $transport = $defTransport;
             }
 
-            $cardStatements[] = $counter.". ".$card->getCardStatement($transport, $cardInfo);
+            $cardStatements[] = $counter.". ".$cardManager->getCardStatement($transport, $cardInfo);
             $counter++;
         }
 
