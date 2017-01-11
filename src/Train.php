@@ -9,7 +9,7 @@ class Train implements Transport
     /**
      * Get boarding card info based on Card
      *
-     * @param Array $card
+     * @param  Array $card
      * @return String $str Boarding description
      */
     public function getBoardingCardInfo($card)

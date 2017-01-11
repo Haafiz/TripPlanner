@@ -1,7 +1,6 @@
 <?php
 /**
- * CardManager
- *
+ * @class CardManager
  * @author Hafiz Waheeduddin Ahmad <kaasib@gmail.com>
  */
 class CardManager
@@ -9,8 +8,8 @@ class CardManager
     /**
      * Get Card description as statement/Sentence
      *
-     * @param Transport $transport
-     * @param  Array $Card
+     * @param  Transport $transport Object that implements Transport interface
+     * @param  Array     $card      Card's Array
      * @return String Card description
      */
     public function getCardStatement(Transport $transport, $card)
@@ -23,7 +22,7 @@ class CardManager
     /**
      * Get Transport Name from Card
      *
-     * @param  Array $Card
+     * @param  Array $card
      * @return String Trasport name
      */
     public function getTransportName($card)

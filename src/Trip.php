@@ -9,9 +9,9 @@ class Trip
     /**
      * Get Trip Description based on Cards
      *
-     * @param CardManager $cardManager
-     * @param Array $cards
-     * @param Transport $defTransport Default object implementing Transport
+     * @param  CardManager $cardManager
+     * @param  Array       $cards
+     * @param  Transport   $defTransport Default object implementing Transport
      * @return String Trip description
      */
     public function getTripDescriptionFromCards(CardManager $cardManager, $cards, $defTransport = null)
@@ -41,7 +41,7 @@ class Trip
     /**
      * Sort Cards
      *
-     * @param Array $cards
+     * @param  Array $cards
      * @return Array $sortCards Cards in sorted order
      */
     public function sortCards($cards)
